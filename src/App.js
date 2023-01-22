@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
-
+// import TodoList from "./components/TodoList";
+import Button from "@atlaskit/button";
+import Textfield from "@atlaskit/textfield";
+// eslint-disable-next-line
+import React, {Component, useState} from "react";
+import TodoList from "./components/TodoList";
 function App() {
+  // state: du lieu noi tai cua component hien tai
+  // prop: du lieu truyen tu ben ngoai vao
+  const [todoList, setTodoList] =useState([]);
+  const [textInput, setTextInput] = useState("");
+
+  const onTextInputChange = (e) => {
+    setTextInput(e.target.value);
+  }
+
+  const onAddBtnClick = (e) => {
+    setTodoList([...todoList, {id : '', name : textInput, isCompleted : false}]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h3>Todolist</h3>
+      <Textfield placeholder="Enter todo item: " elemAfterInput={
+        <Button isDisabled={true} appearance='primary' onClick={onAddBtnClick}>Add</Button>
+      } css={{ padding: "2px 4px, 2px" }} onChange={onTextInputChange}
+      ></Textfield>
+      <TodoList/>
+    </>
   );
 }
 
